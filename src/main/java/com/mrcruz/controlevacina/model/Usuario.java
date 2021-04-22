@@ -1,6 +1,6 @@
 package com.mrcruz.controlevacina.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,14 +8,18 @@ import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 @Entity
 public class Usuario {
 	
 	@Id
-	@Size(min = 11, max = 11)
+	@CPF
 	private String cpf;
 	
 	@NotBlank
@@ -26,14 +30,16 @@ public class Usuario {
 	@Column(unique = true)
 	private String email;
 	
+
 	@NotNull
-	private Date dataNascimento;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	private LocalDate dataNascimento;
 	
 	public Usuario() {
 		
 	}
 
-	public Usuario(String cpf, String nome, String email, Date dataNascimento) {
+	public Usuario(String cpf, String nome, String email, LocalDate dataNascimento) {
 		this.cpf = cpf;
 		this.nome = nome;
 		this.email = email;
@@ -64,11 +70,11 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public Date getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 	

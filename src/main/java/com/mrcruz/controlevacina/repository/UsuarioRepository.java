@@ -7,5 +7,7 @@ import com.mrcruz.controlevacina.model.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, String> {
+	
+	Usuario findByEmail(String email);
 
 }

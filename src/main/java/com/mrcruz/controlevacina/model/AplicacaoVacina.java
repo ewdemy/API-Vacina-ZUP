@@ -1,20 +1,17 @@
 package com.mrcruz.controlevacina.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.UniqueElements;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class AplicacaoVacina {
@@ -26,18 +23,20 @@ public class AplicacaoVacina {
 	@NotBlank
 	private String NomeVacina;
 	
+	
 	@OneToOne
-	@JoinColumn(name = "cpf_usuario", unique = true)
+	@JoinColumn(name = "cpf_usuario")
 	private Usuario usuario;
 	
 	@NotNull
-	private Date dataAplicacao;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	private LocalDate dataAplicacao;
 	
 	public AplicacaoVacina() {
 		
 	}
 
-	public AplicacaoVacina(String nomeVacina, Usuario usuario, Date dataAplicacao) {
+	public AplicacaoVacina(String nomeVacina, Usuario usuario, LocalDate dataAplicacao) {
 		this.NomeVacina = nomeVacina;
 		this.usuario = usuario;
 		this.dataAplicacao = dataAplicacao;
@@ -67,11 +66,11 @@ public class AplicacaoVacina {
 		this.usuario = usuario;
 	}
 
-	public Date getDataAplicacao() {
+	public LocalDate getDataAplicacao() {
 		return dataAplicacao;
 	}
 
-	public void setDataAplicacao(Date dataAplicacao) {
+	public void setDataAplicacao(LocalDate dataAplicacao) {
 		this.dataAplicacao = dataAplicacao;
 	}
 	

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mrcruz.controlevacina.exception.CpfExistenteException;
 import com.mrcruz.controlevacina.model.Usuario;
 import com.mrcruz.controlevacina.repository.UsuarioRepository;
 
@@ -26,6 +27,14 @@ public class UsuarioController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Usuario salvarUsuario(@Valid @RequestBody Usuario usuario) {
+		if(repository.existsById(usuario.getCpf())) {
+			throw new CpfExistenteException("CPF já cadastrado!");
+		}
 		return repository.save(usuario);
+	}
+	
+	@GetMapping
+	public List<Usuario> listar(){
+		return repository.findAll();
 	}
 }

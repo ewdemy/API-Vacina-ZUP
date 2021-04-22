@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mrcruz.controlevacina.model.AplicacaoVacina;
-import com.mrcruz.controlevacina.model.Usuario;
 import com.mrcruz.controlevacina.repository.AplicacaoVacinaRepository;
-import com.mrcruz.controlevacina.repository.UsuarioRepository;
 
 @RestController
 @RequestMapping("/aplicacao")
@@ -30,5 +28,11 @@ public class AplicacaoVacinaController {
 	public AplicacaoVacina cadastrarAplicacao(@Valid @RequestBody AplicacaoVacina aplicacao) {
 		return repository.save(aplicacao);
 	}
+	
+	@GetMapping
+	public List<AplicacaoVacina> listar(){
+		return repository.findAll();
+	}
+	
 
 }
